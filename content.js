@@ -3,7 +3,8 @@
     masterEnabled: true,
     hideShorts: true,
     hideComments: true,
-    hideHomeFeed: true
+    hideHomeFeed: true,
+    hideVideoRecommendations: true
   };
 
   let settings = DEFAULT_SETTINGS;
@@ -106,6 +107,21 @@
     });
   }
 
+  function hideVideoRecommendations() {
+    if (!settings.masterEnabled || !settings.hideVideoRecommendations) return;
+
+    if (window.location.pathname === '/watch') {
+      const recommendations = document.querySelector('#secondary, ytd-watch-next-secondary-results-renderer');
+      if (recommendations) {
+        recommendations.classList.add('ytfocus-videorecommendations');
+      }
+    }
+
+    document.querySelectorAll('.ytfocus-videorecommendations').forEach((el) => {
+      el.style.display = 'none';
+    });
+  }
+
   function applyFilters() {
     if (settings.hideShorts && settings.masterEnabled) {
       hideShorts();
@@ -115,6 +131,9 @@
     }
     if (settings.hideHomeFeed && settings.masterEnabled) {
       hideHomeFeed();
+    }
+    if (settings.hideVideoRecommendations && settings.masterEnabled) {
+      hideVideoRecommendations();
     }
   }
 
@@ -129,6 +148,7 @@
     clearFilter('ytfocus-shorts');
     clearFilter('ytfocus-comments');
     clearFilter('ytfocus-homefeed');
+    clearFilter('ytfocus-videorecommendations');
   }
 
   loadSettings();
@@ -143,6 +163,7 @@
       if (!settings.hideShorts) clearFilter('ytfocus-shorts');
       if (!settings.hideComments) clearFilter('ytfocus-comments');
       if (!settings.hideHomeFeed) clearFilter('ytfocus-homefeed');
+      if (!settings.hideVideoRecommendations) clearFilter('ytfocus-videorecommendations');
       applyFilters();
     }
   });
@@ -152,6 +173,7 @@
       if (settings.hideShorts) hideShorts();
       if (settings.hideComments) hideComments();
       if (settings.hideHomeFeed) hideHomeFeed();
+      if (settings.hideVideoRecommendations) hideVideoRecommendations();
     }
   });
 
