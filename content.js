@@ -41,6 +41,17 @@
       }
     });
 
+    document.querySelectorAll('grid-shelf-view-model').forEach((el) => {
+      const title = el.querySelector('.yt-shelf-header-layout__title');
+      if (title && title.textContent && title.textContent.includes('Shorts')) {
+        el.classList.add('ytfocus-shorts');
+      }
+    });
+
+    document.querySelectorAll('ytm-shorts-lockup-view-model-v2').forEach((el) => {
+      el.classList.add('ytfocus-shorts');
+    });
+
     document.querySelectorAll('ytd-guide-entry-renderer, ytd-mini-guide-entry-renderer').forEach((el) => {
       const title = el.getAttribute('title');
       const link = el.querySelector('a[href*="/shorts"]');
