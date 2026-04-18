@@ -3,7 +3,6 @@
     masterEnabled: true,
     hideShorts: true,
     hideComments: true,
-    hideHomeFeed: true,
     hideRecommendations: true
   };
 
@@ -111,23 +110,15 @@
     });
   }
 
-  function hideHomeFeed() {
-    if (!settings.masterEnabled || !settings.hideHomeFeed) return;
+  function hideRecommendations() {
+    if (!settings.masterEnabled || !settings.hideRecommendations) return;
 
     if (window.location.pathname === '/' || window.location.pathname === '/feed/home') {
       const homeFeed = document.querySelector('ytd-browse[page-subtype="home"]');
       if (homeFeed) {
-        homeFeed.classList.add('ytfocus-homefeed');
+        homeFeed.classList.add('ytfocus-recommendations');
       }
     }
-
-    document.querySelectorAll('.ytfocus-homefeed').forEach((el) => {
-      el.style.display = 'none';
-    });
-  }
-
-  function hideRecommendations() {
-    if (!settings.masterEnabled || !settings.hideRecommendations) return;
 
     if (window.location.pathname === '/watch') {
       document.querySelectorAll('#secondary, ytd-watch-next-secondary-results-renderer').forEach((el) => {
@@ -147,9 +138,6 @@
     if (settings.hideComments && settings.masterEnabled) {
       hideComments();
     }
-    if (settings.hideHomeFeed && settings.masterEnabled) {
-      hideHomeFeed();
-    }
     if (settings.hideRecommendations && settings.masterEnabled) {
       hideRecommendations();
     }
@@ -165,7 +153,6 @@
   function clearAllFilters() {
     clearFilter('ytfocus-shorts');
     clearFilter('ytfocus-comments');
-    clearFilter('ytfocus-homefeed');
     clearFilter('ytfocus-recommendations');
   }
 
@@ -180,7 +167,6 @@
     } else {
       if (!settings.hideShorts) clearFilter('ytfocus-shorts');
       if (!settings.hideComments) clearFilter('ytfocus-comments');
-      if (!settings.hideHomeFeed) clearFilter('ytfocus-homefeed');
       if (!settings.hideRecommendations) clearFilter('ytfocus-recommendations');
       applyFilters();
     }
@@ -190,7 +176,6 @@
     if (settings.masterEnabled) {
       if (settings.hideShorts) hideShorts();
       if (settings.hideComments) hideComments();
-      if (settings.hideHomeFeed) hideHomeFeed();
       if (settings.hideRecommendations) hideRecommendations();
     }
   });
